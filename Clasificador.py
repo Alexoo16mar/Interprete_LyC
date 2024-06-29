@@ -1,9 +1,7 @@
 from Token import Token
 import re
+from AutomataPila import MiExcepcion
 
-class MiExcepcion(Exception):
-    def __init__(self, mensaje):
-        self.mensaje = mensaje
 
 tipo_var={"int", "float", "double"}
 
@@ -16,15 +14,21 @@ caracteres_especiales = {
 
 def tokenizer(dato):
     tipo="No encontrado"
+    if dato in tipo_var:
+        tipo = "tipo_var"
+        nuevoToken = Token(dato, tipo)
+        return nuevoToken
     regex = re.compile(r'^[a-zA-Z_]\w*$')
     regex_num = re.compile(r'^[+-]?\d+(\.\d+)?$')
     if (regex.match(dato)):
         tipo = "ID"
+        nuevoToken = Token(dato, tipo)
     elif(regex_num.match(dato)):
         tipo = "Numerico"
+        nuevoToken = Token(dato, tipo)
+        nuevoToken.set_valor(float(dato))
     else:
         raise MiExcepcion("Error!!!")
-    nuevoToken = Token(dato, tipo)
     return nuevoToken
 
 def es_caracter_esp(dato):
