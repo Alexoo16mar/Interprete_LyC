@@ -7,6 +7,10 @@ class Token:
         self.direccion=direccion
         self.valor=valor
     
+    def __init__(self, dato, tipo):
+        self.dato = dato
+        self.tipo = tipo
+    
     def set_dato(self, nuevo_dato):
         self.dato = nuevo_dato
     
