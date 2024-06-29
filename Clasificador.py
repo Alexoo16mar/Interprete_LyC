@@ -3,7 +3,7 @@ import re
 from AutomataPila import MiExcepcion
 
 
-tipo_var={"int", "float", "double"}
+tipo_var={"entero", "real"}
 
 caracteres_especiales = {
     "<Operador_Aritmetico>": ['+', '-', '/', '*', '^'],
