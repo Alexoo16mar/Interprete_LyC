@@ -73,7 +73,10 @@ class scanner():
                 raise automata.MiExcepcion("La variable " + self.lista_tokens[0].get_dato() + " no ha sido declarada")
             
             print(self.lista_tokens[0].get_dato(), " = ", self.lista_simbolos[self.lista_tokens[0].get_dato()])
-        
+        elif len(self.lista_tokens) == 2:
+            if self.lista_tokens[1].get_dato() in self.lista_simbolos:
+                raise automata.MiExcepcion("Error! >> La variable " + self.lista_tokens[1].get_dato() + " ya ha sido declarada")
+            self.lista_simbolos[self.lista_tokens[1].get_dato()] = 0
         else:
             lista_1, lista_2 = self.DividirListaTokens()
             
