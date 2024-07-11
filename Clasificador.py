@@ -10,6 +10,7 @@ caracteres_especiales = {
     "<Operador_asignacion>": ['=', '+=', '-=', '=', '/=', '%=', '*=', '//='],
     "<Operador_Incremento>": ['++', '--'],
     "<Caracter_Agrupacion>": ['(', ')'],
+    "<Operador_Impresion>":["<<","<"]
 }
 
 def tokenizer(dato):

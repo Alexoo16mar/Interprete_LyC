@@ -1,10 +1,9 @@
 class Token:
-    def __init__(self, dato, tipo,id,tipo_var,direccion,valor):
+    def __init__(self, dato, tipo,id,tipo_var,valor):
         self.dato = dato
         self.tipo = tipo
         self.id=id
         self.tipo_var=tipo_var
-        self.direccion=direccion
         self.valor=valor
     
     def __init__(self, dato, tipo):
@@ -34,12 +33,6 @@ class Token:
     
     def get_tipo_var(self):
         return self.tipo_var
-    
-    def set_direccion(self, nueva_direccion):
-        self.direccion = nueva_direccion
-    
-    def get_direccion(self):
-        return self.direccion
     
     def set_valor(self, nuevo_valor):
         self.valor = nuevo_valor

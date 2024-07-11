@@ -65,25 +65,24 @@ class scanner():
     
     def reconocer(self, string):
         self.separador_tokens(string)
+        if self.lista_tokens[0].get_dato() == "cout":
+            if not self.lista_tokens[1].get_dato() == "<<":
+                raise automata.MiExcepcion("Error! >> Expresion Incorrecta")
+            if self.lista_tokens[2].get_tipo() == "ID":
+                if self.lista_tokens[2].get_dato() not in self.lista_simbolos:
+                    raise automata.MiExcepcion("La variable " + self.lista_tokens[2].get_dato() + " no ha sido declarada")
+                print(self.lista_simbolos[self.lista_tokens[2].get_dato()])
+            return
         if not automata.AutomataPilaEA(self.lista_tokens):
             raise automata.MiExcepcion("Error! >> Expresion Incorrecta")
         
-        if len(self.lista_tokens) == 1:
-            if self.lista_tokens[0].get_dato() not in self.lista_simbolos:
-                raise automata.MiExcepcion("La variable " + self.lista_tokens[0].get_dato() + " no ha sido declarada")
-            
-            print(self.lista_tokens[0].get_dato(), " = ", self.lista_simbolos[self.lista_tokens[0].get_dato()])
-        elif len(self.lista_tokens) == 2:
-            if self.lista_tokens[1].get_dato() in self.lista_simbolos:
-                raise automata.MiExcepcion("Error! >> La variable " + self.lista_tokens[1].get_dato() + " ya ha sido declarada")
-            self.lista_simbolos[self.lista_tokens[1].get_dato()] = 0
         else:
             lista_1, lista_2 = self.DividirListaTokens()
             
             if len(lista_1) == 2:
                 lista_1[1].set_valor(evaluarExpresion(conversionPosfija(lista_2), self.lista_simbolos))
                 self.lista_simbolos[lista_1[1].get_dato()] = lista_1[1].get_valor()
-                print(lista_1[1].get_dato(), " = ", lista_1[1].get_valor())
+                #print(lista_1[1].get_dato(), " = ", lista_1[1].get_valor())
             
             elif len(lista_1) == 1:
                 lista_1[0].set_valor(evaluarExpresion(conversionPosfija(lista_2), self.lista_simbolos))
@@ -92,7 +91,7 @@ class scanner():
                     raise automata.MiExcepcion("La variable " + lista_1[0].get_dato() + " no ha sido declarada")
                 
                 self.lista_simbolos[lista_1[0].get_dato()] = lista_1[0].get_valor()
-                print(lista_1[0].get_dato(), " = ", lista_1[0].get_valor())
+                #print(lista_1[0].get_dato(), " = ", lista_1[0].get_valor())
     
     def interprete(self):
         while True:
@@ -106,5 +105,10 @@ class scanner():
                 self.reconocer(expresion)
             except automata.MiExcepcion as e:
                 print(e.mensaje)
-            print(self.lista_simbolos)
+            # Para atrapar una division entre cero:
+            except ZeroDivisionError:
+                print("Error! >> Division entre cero")
+            except Exception as e:
+                print("Error! >> Expresion Incorrecta")
+            #print(self.lista_simbolos)
 

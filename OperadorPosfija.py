@@ -1,4 +1,5 @@
 from AutomataPila import MiExcepcion
+
 def procesaUnOperador(pilaOperando, op):
     op2 = pilaOperando.pop()
     op1 = pilaOperando.pop()
