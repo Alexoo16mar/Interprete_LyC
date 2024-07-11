@@ -49,7 +49,7 @@ def AutomataPilaEA(lista_tokens):
             else:
                 raise MiExcepcion("Error! >> Expresion Incorrecta")
         if estado_actual == "q3":
-            if indice == len(lista_tokens):
+            if indice == len(lista_tokens) and len(pila) == 0:
                 estado_actual = "qf"
                 indicador = True
             elif lista_tokens[indice].get_dato() == ")":
@@ -63,6 +63,8 @@ def AutomataPilaEA(lista_tokens):
                 estado_actual = "q8"
                 indice += 1
             else:
+                if len(pila)>0:
+                    raise MiExcepcion("Error! >> Se espera un operador aritmetico")
                 raise MiExcepcion("Error! >> Expresion Incorrecta")
         if estado_actual == "q5":
             if lista_tokens[indice].get_tipo() == "Numerico" or lista_tokens[indice].get_tipo() == "ID":
