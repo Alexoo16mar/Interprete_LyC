@@ -15,18 +15,6 @@ def AutomataPilaEA(lista_tokens):
             if lista_tokens[indice].get_tipo() == "ID":
                 estado_actual = "q1"
                 indice += 1
-            elif lista_tokens[indice].get_tipo() == "tipo_var":
-                estado_actual = "q9"
-                indice += 1
-            else:
-                raise MiExcepcion("Error! >> Expresion Incorrecta")
-        if estado_actual == "q9":
-            if lista_tokens[indice].get_tipo() == "ID":
-                estado_actual = "q1"
-                indice += 1
-                if len(lista_tokens) == 2:
-                    indicador = True
-                    estado_actual = "qf"
             else:
                 raise MiExcepcion("Error! >> Expresion Incorrecta")
         if estado_actual == "q1":
@@ -75,6 +63,7 @@ def AutomataPilaEA(lista_tokens):
         if estado_actual == "q6":
             if lista_tokens[indice].get_dato() == ")":
                 estado_actual = "q3"
+                pila.pop()
                 indice += 1
             elif lista_tokens[indice].get_tipo() == "<Operador_Aritmetico>":
                 estado_actual = "q7"

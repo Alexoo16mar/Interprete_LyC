@@ -2,9 +2,6 @@ from Token import Token
 import re
 from AutomataPila import MiExcepcion
 
-
-tipo_var={"entero", "real"}
-
 caracteres_especiales = {
     "<Operador_Aritmetico>": ['+', '-', '/', '*', '^'],
     "<Operador_asignacion>": ['=', '+=', '-=', '=', '/=', '%=', '*=', '//='],
@@ -15,10 +12,6 @@ caracteres_especiales = {
 
 def tokenizer(dato):
     tipo="No encontrado"
-    if dato in tipo_var:
-        tipo = "tipo_var"
-        nuevoToken = Token(dato, tipo)
-        return nuevoToken
     regex = re.compile(r'^[a-zA-Z_]\w*$')
     regex_num = re.compile(r'^[+-]?\d+(\.\d+)?$')
     if (regex.match(dato)):
