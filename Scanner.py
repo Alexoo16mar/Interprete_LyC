@@ -73,25 +73,13 @@ class scanner():
                     raise automata.MiExcepcion("La variable " + self.lista_tokens[2].get_dato() + " no ha sido declarada")
                 print(self.lista_simbolos[self.lista_tokens[2].get_dato()])
             return
+        
         if not automata.AutomataPilaEA(self.lista_tokens):
             raise automata.MiExcepcion("Error! >> Expresion Incorrecta")
-        
         else:
             lista_1, lista_2 = self.DividirListaTokens()
-            
-            if len(lista_1) == 2:
-                lista_1[1].set_valor(evaluarExpresion(conversionPosfija(lista_2), self.lista_simbolos))
-                self.lista_simbolos[lista_1[1].get_dato()] = lista_1[1].get_valor()
-                #print(lista_1[1].get_dato(), " = ", lista_1[1].get_valor())
-            
-            elif len(lista_1) == 1:
-                lista_1[0].set_valor(evaluarExpresion(conversionPosfija(lista_2), self.lista_simbolos))
-                
-                if lista_1[0].get_dato() not in self.lista_simbolos:
-                    raise automata.MiExcepcion("La variable " + lista_1[0].get_dato() + " no ha sido declarada")
-                
-                self.lista_simbolos[lista_1[0].get_dato()] = lista_1[0].get_valor()
-                #print(lista_1[0].get_dato(), " = ", lista_1[0].get_valor())
+            lista_1[0].set_valor(evaluarExpresion(conversionPosfija(lista_2), self.lista_simbolos))
+            self.lista_simbolos[lista_1[0].get_dato()] = lista_1[0].get_valor()
     
     def interprete(self):
         while True:
@@ -101,6 +89,9 @@ class scanner():
                     break
                 elif expresion == "clear":
                     self.lista_simbolos.clear()
+                    continue
+                elif expresion == "tabla":
+                    print(self.lista_simbolos)
                     continue
                 self.reconocer(expresion)
             except automata.MiExcepcion as e:
